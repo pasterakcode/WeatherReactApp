@@ -1,34 +1,37 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-function ResultTable( { weatherInfo, onHanldeWeatherInfo }) {
-    const [timeToUpdate, setTimeToUpdate] = useState(10)
+function ResultTable({ weatherInfo, onHanldeWeatherInfo }) {
+	const [timeToUpdate, setTimeToUpdate] = useState(null);
+	const [timer, setTimer] = useState(null)
 
-    useEffect(() => {
-        return () => {
-            startTimeToUpdate();
-        }
-    }, [weatherInfo])
+	useEffect(() => {
+		if (weatherInfo) {
+			setTimeToUpdate(16);
+			setTimer(setInterval(() => {
+				setTimeToUpdate(prev => prev - 1);
+			}, 1000));
+		}
+	}, [weatherInfo]);
 
-    const startTimeToUpdate = () => {
-        let sec = 10;
-        const counter = setInterval(() => {
-            setTimeToUpdate(prev => prev - 1);
-            sec--;    
-            console.log(sec)
-            if ( sec === -1 ){
-                clearInterval(counter);
-                setTimeToUpdate(10);
-                onHanldeWeatherInfo();
-            }
-        }, 1000);
-    }
+	const checkTimeToUpdate = () => {
+		if (timeToUpdate <= -1) {
+			clearInterval(timer);
+			setTimeToUpdate(null);
+			updateWeatherInfo();
+		}
+	};
+
+	const updateWeatherInfo = () => {
+		onHanldeWeatherInfo();
+	};
+
 	return (
 		<table className='table'>
 			<thead>
 				<tr>
-					<th scope='col'>First</th>
-					<th scope='col'>Last</th>
-					<th scope='col'>Handle</th>
+					<th scope='col'>date</th>
+					<th scope='col'>humidity</th>
+					<th scope='col'>temp</th>
 					<th scope='col'>Time to update</th>
 				</tr>
 			</thead>
@@ -37,7 +40,7 @@ function ResultTable( { weatherInfo, onHanldeWeatherInfo }) {
 					<td>{weatherInfo.date}</td>
 					<td>{weatherInfo.humidity}</td>
 					<td>{weatherInfo.temp}</td>
-					<td>{timeToUpdate}</td>               
+					<td onChange={checkTimeToUpdate()}>{timeToUpdate}</td>
 				</tr>
 			</tbody>
 		</table>

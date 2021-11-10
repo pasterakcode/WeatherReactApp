@@ -4,11 +4,10 @@ import Header from './components/Header/Header';
 import MainSection from './components/MainSection/MainSection';
 
 function App() {
-  const [selectedTown, setSelectedTown] = useState("");
+  const [selectedTown, setSelectedTown] = useState();
 
   const getTown = (town) => {
     if (selectedTown !== town){
-      console.log(town)
       setSelectedTown(town);
     }
   }

@@ -4,7 +4,7 @@ import TitleSection from '../../GlobalComponents/TitleSection';
 import OneSelectTown from './OneSelectTown/OneSelectTown';
 
 function SelectSection( { onHandleTown }) {
-	const towns = ['London', 'Munchen'];
+	const towns = ['London', 'München'];
 
 	return (
 		<div className={`${styles.selectSection}`}>
