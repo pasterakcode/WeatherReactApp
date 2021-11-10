@@ -3,37 +3,31 @@ import styles from './ResultSection.module.css';
 import TitleSection from '../../GlobalComponents/TitleSection';
 import ResultTable from './ResultTable/ResultTable';
 import axios from 'axios';
+import { myConfig } from '../../../config';
 
 function ResultSection({ selectedTown }) {
 	const [weatherInfo, setWeatherInfo] = useState('');
 	const apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
-	const apiKey = '&appid=0f108b745624921d1b3b89f457e80a95';
-	const apiKey2 = '&appid=722ec66764c3f6a657d371702de7158e';
 	const units = '&units=metric';
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		if (selectedTown) {
-	// 			try {
-	// 				await getWeatherInfo();
-	// 			} catch (err) {
-	// 				console.log(err);
-	// 			}
-	// 		}
-	// 	};
-	// 	fetchData();
-	// }, [selectedTown]);
-	// useEffect(() => {
-	// 	if (selectedTown) {
-	// 		getWeatherInfo();
-	// 	}
-	// }, [selectedTown]);
+	useEffect(() => {
+		const fetchData = async () => {
+			if (selectedTown) {
+				try {
+					await getWeatherInfo();
+				} catch (err) {
+					console.log(err);
+				}
+			}
+		};
+		fetchData();
+	}, [selectedTown]);
 
 	const fetchWeather = async () => {
 		try {
 			console.log(`pobieram pogode dla: ${selectedTown}`);
 			const weatherAllInfo = await axios.get(
-				apiLink + selectedTown + apiKey + units
+				apiLink + selectedTown + myConfig.apiKey + units
 			);
 			console.log(`weather info fetch : all: ${selectedTown}`);
 			return weatherAllInfo;
