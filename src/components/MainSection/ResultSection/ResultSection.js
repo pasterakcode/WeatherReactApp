@@ -25,11 +25,11 @@ function ResultSection({ selectedTown }) {
 
 	const fetchWeather = async () => {
 		try {
-			console.log(`pobieram pogode dla: ${selectedTown}`);
+			console.log(`fetchWeather 1 ( before await get )`);
 			const weatherAllInfo = await axios.get(
 				apiLink + selectedTown + myConfig.apiKey + units
-			);
-			console.log(`weather info fetch : all: ${selectedTown}`);
+				);
+				console.log(`fetchWeather 2 ( after await get )`);
 			return weatherAllInfo;
 		} catch (err) {
 			console.log(err);
@@ -37,7 +37,7 @@ function ResultSection({ selectedTown }) {
 	};
 
 	const getWeatherInfo = async () => {
-		console.log('get weather info');
+		console.log('getWeatherInfo 1 ( before await fetchWeather )');
 		try {
 			const weatherAllInfo = await fetchWeather();
 			const unixTimestamp = weatherAllInfo.data.dt;
@@ -49,7 +49,7 @@ function ResultSection({ selectedTown }) {
 				humidity,
 				temp,
 			};
-			console.log('ustawiam weather info:');
+			console.log('getWeatherInfo 2 ( after await fetchWeather )');
 			setWeatherInfo(infoObject);
 		} catch (err) {
 			console.log(err);
@@ -73,6 +73,7 @@ function ResultSection({ selectedTown }) {
 		<div className={`${styles.resultSection}`}>
 			<TitleSection section='result' />
 			<ResultTable
+				selectedTown={selectedTown}
 				weatherInfo={weatherInfo}
 				onHanldeWeatherInfo={getWeatherInfo}
 			/>

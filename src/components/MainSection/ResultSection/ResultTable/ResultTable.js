@@ -1,28 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
-function ResultTable({ weatherInfo, onHanldeWeatherInfo }) {
+function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 	const [timeToUpdate, setTimeToUpdate] = useState(null);
-	const [timer, setTimer] = useState(null)
+	const [timer, setTimer] = useState(null);
 
 	useEffect(() => {
-		if (weatherInfo) {
-			setTimeToUpdate(16);
-			setTimer(setInterval(() => {
-				setTimeToUpdate(prev => prev - 1);
-			}, 1000));
-		}
-	}, [weatherInfo]);
-
-	const checkTimeToUpdate = () => {
-		if (timeToUpdate <= -1) {
+		if (selectedTown) {
+			console.log('UseEffect:');
 			clearInterval(timer);
-			setTimeToUpdate(null);
-			updateWeatherInfo();
+			setTimeToUpdate(15);
+			setTimer(
+				setInterval(async () => {
+					setTimeToUpdate(prev => prev - 1);
+				}, 1000)
+			);
 		}
-	};
+	}, [selectedTown]);
 
-	const updateWeatherInfo = () => {
-		onHanldeWeatherInfo();
+	useEffect(() => {
+		const checker = async () => {
+			try {
+				console.log('checkTimeToUpdate 1');
+				if (timeToUpdate < 0 && timeToUpdate > -2) {
+					console.log('checkTimeToUpdate 2 (inside if === -1 ');
+					setTimeToUpdate(15);
+					await updateWeatherInfo();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		checker();
+	}, [timeToUpdate]);
+
+	const updateWeatherInfo = async () => {
+		console.log('updateWeatherInfo 1');
+		try {
+			await onHanldeWeatherInfo();
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
@@ -40,7 +57,7 @@ function ResultTable({ weatherInfo, onHanldeWeatherInfo }) {
 					<td>{weatherInfo.date}</td>
 					<td>{weatherInfo.humidity}</td>
 					<td>{weatherInfo.temp}</td>
-					<td onChange={checkTimeToUpdate()}>{timeToUpdate}</td>
+					<td>{timeToUpdate}</td>
 				</tr>
 			</tbody>
 		</table>
