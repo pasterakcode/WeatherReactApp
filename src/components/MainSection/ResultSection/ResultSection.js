@@ -6,9 +6,12 @@ import axios from 'axios';
 import { myConfig } from '../../../config';
 
 function ResultSection({ selectedTown }) {
+	// const [weatherInfo, setWeatherInfo] = useState({
+	// 	date: '20.11.2020',
+	// 	humidity: 30,
+	// 	temp: 30,
+	// });
 	const [weatherInfo, setWeatherInfo] = useState('');
-	const apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
-	const units = '&units=metric';
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -25,11 +28,10 @@ function ResultSection({ selectedTown }) {
 
 	const fetchWeather = async () => {
 		try {
-			console.log(`fetchWeather 1 ( before await get )`);
 			const weatherAllInfo = await axios.get(
-				apiLink + selectedTown + myConfig.apiKey + units
-				);
-				console.log(`fetchWeather 2 ( after await get )`);
+				myConfig.apiLink + selectedTown + myConfig.apiId + '&units=metric'
+			);
+			console.log('uwaga!! pobieram dane!');
 			return weatherAllInfo;
 		} catch (err) {
 			console.log(err);
@@ -37,8 +39,8 @@ function ResultSection({ selectedTown }) {
 	};
 
 	const getWeatherInfo = async () => {
-		console.log('getWeatherInfo 1 ( before await fetchWeather )');
 		try {
+			setWeatherInfo('');
 			const weatherAllInfo = await fetchWeather();
 			const unixTimestamp = weatherAllInfo.data.dt;
 			const date = getDate(unixTimestamp);
@@ -49,7 +51,6 @@ function ResultSection({ selectedTown }) {
 				humidity,
 				temp,
 			};
-			console.log('getWeatherInfo 2 ( after await fetchWeather )');
 			setWeatherInfo(infoObject);
 		} catch (err) {
 			console.log(err);
@@ -71,12 +72,18 @@ function ResultSection({ selectedTown }) {
 
 	return (
 		<div className={`${styles.resultSection}`}>
-			<TitleSection section='result' />
-			<ResultTable
-				selectedTown={selectedTown}
-				weatherInfo={weatherInfo}
-				onHanldeWeatherInfo={getWeatherInfo}
-			/>
+			{selectedTown ? (
+				<>
+					<TitleSection section='Actual weather:' />
+					<ResultTable
+						selectedTown={selectedTown}
+						weatherInfo={weatherInfo}
+						onHanldeWeatherInfo={getWeatherInfo}
+					/>
+				</>
+			) : (
+				<p> Please select Town </p>
+			)}
 		</div>
 	);
 }

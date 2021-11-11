@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import styles from './ResultTable.module.css'
+import LoadingPage from '../../../GlobalComponents/LoadingPage/LoadingPage';
 
 function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 	const [timeToUpdate, setTimeToUpdate] = useState(null);
@@ -6,7 +8,6 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 
 	useEffect(() => {
 		if (selectedTown) {
-			console.log('UseEffect:');
 			clearInterval(timer);
 			setTimeToUpdate(15);
 			setTimer(
@@ -20,9 +21,7 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 	useEffect(() => {
 		const checker = async () => {
 			try {
-				console.log('checkTimeToUpdate 1');
-				if (timeToUpdate < 0 && timeToUpdate > -2) {
-					console.log('checkTimeToUpdate 2 (inside if === -1 ');
+				if (timeToUpdate < 0) {
 					setTimeToUpdate(15);
 					await updateWeatherInfo();
 				}
@@ -34,7 +33,6 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 	}, [timeToUpdate]);
 
 	const updateWeatherInfo = async () => {
-		console.log('updateWeatherInfo 1');
 		try {
 			await onHanldeWeatherInfo();
 		} catch (err) {
@@ -43,21 +41,31 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 	};
 
 	return (
-		<table className='table'>
+		<table className={`table ${styles.table}`}>
 			<thead>
 				<tr>
 					<th scope='col'>date</th>
 					<th scope='col'>humidity</th>
 					<th scope='col'>temp</th>
-					<th scope='col'>Time to update</th>
+					<th scope='col'>to update</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>{weatherInfo.date}</td>
-					<td>{weatherInfo.humidity}</td>
-					<td>{weatherInfo.temp}</td>
-					<td>{timeToUpdate}</td>
+					{weatherInfo ? (
+						<>
+							<td>{weatherInfo.date}</td>
+							<td>{weatherInfo.humidity}</td>
+							<td>{weatherInfo.temp}</td>
+							<td>{timeToUpdate}</td>
+						</>
+					) : (
+						<>
+							<td colspan="4">
+								<LoadingPage />
+							</td>
+						</>
+					)}
 				</tr>
 			</tbody>
 		</table>

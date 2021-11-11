@@ -15,7 +15,6 @@ function App() {
 		<div className={`${styles.App} container`}>
 			<Header />
 			<MainSection onHandleTown={getTown} selectedTown={selectedTown}/>
-      <h1>{selectedTown}</h1>
 		</div>
 	);
 }

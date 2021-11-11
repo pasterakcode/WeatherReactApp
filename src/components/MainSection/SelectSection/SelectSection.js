@@ -8,7 +8,7 @@ function SelectSection( { onHandleTown }) {
 
 	return (
 		<div className={`${styles.selectSection}`}>
-			<TitleSection section='select town' />
+			<TitleSection section='Towns to select:' />
 			{towns.map(town => (
 				<OneSelectTown town={town} key={towns.indexOf(town)} onHandleTown={onHandleTown} />
 			))}
