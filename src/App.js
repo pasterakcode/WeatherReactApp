@@ -4,17 +4,17 @@ import Header from './components/Header/Header';
 import MainSection from './components/MainSection/MainSection';
 
 function App() {
-  const [selectedTown, setSelectedTown] = useState();
+	const [selectedTown, setSelectedTown] = useState();
 
-  const getTown = (town) => {
-    if (selectedTown !== town){
-      setSelectedTown(town);
-    }
-  }
+	const getTown = town => {
+		if (selectedTown !== town) {
+			setSelectedTown(town);
+		}
+	};
 	return (
 		<div className={`${styles.App} container`}>
 			<Header />
-			<MainSection onHandleTown={getTown} selectedTown={selectedTown}/>
+			<MainSection onHandleTown={getTown} selectedTown={selectedTown} />
 		</div>
 	);
 }

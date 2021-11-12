@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ResultSection.module.css';
-import TitleSection from '../../GlobalComponents/TitleSection';
+import TitleSection from '../../GlobalComponents/TitleSection/TitleSection';
 import ResultTable from './ResultTable/ResultTable';
 import axios from 'axios';
 import { myConfig } from '../../../config';
 
 function ResultSection({ selectedTown }) {
-	// const [weatherInfo, setWeatherInfo] = useState({
-	// 	date: '20.11.2020',
-	// 	humidity: 30,
-	// 	temp: 30,
-	// });
 	const [weatherInfo, setWeatherInfo] = useState('');
 
 	useEffect(() => {
@@ -31,7 +26,6 @@ function ResultSection({ selectedTown }) {
 			const weatherAllInfo = await axios.get(
 				myConfig.apiLink + selectedTown + myConfig.apiId + '&units=metric'
 			);
-			console.log('uwaga!! pobieram dane!');
 			return weatherAllInfo;
 		} catch (err) {
 			console.log(err);
@@ -44,8 +38,8 @@ function ResultSection({ selectedTown }) {
 			const weatherAllInfo = await fetchWeather();
 			const unixTimestamp = weatherAllInfo.data.dt;
 			const date = getDate(unixTimestamp);
-			const humidity = weatherAllInfo.data.main.humidity;
-			const temp = weatherAllInfo.data.main.temp;
+			const humidity = parseInt(weatherAllInfo.data.main.humidity);
+			const temp = parseInt(weatherAllInfo.data.main.temp);
 			const infoObject = {
 				date,
 				humidity,
@@ -74,7 +68,7 @@ function ResultSection({ selectedTown }) {
 		<div className={`${styles.resultSection}`}>
 			{selectedTown ? (
 				<>
-					<TitleSection section='Actual weather:' />
+					<TitleSection section='current weather:' />
 					<ResultTable
 						selectedTown={selectedTown}
 						weatherInfo={weatherInfo}
@@ -82,7 +76,7 @@ function ResultSection({ selectedTown }) {
 					/>
 				</>
 			) : (
-				<p> Please select Town </p>
+				<div className={styles.pleaseSelectedInfo}>to check the weather, please select a town</div>
 			)}
 		</div>
 	);

@@ -1,0 +1,11 @@
+.oneTown {
+    margin: 5px 0px;
+    margin-left: 15px;
+}
+
+.label {
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 18px;
+    margin-left: 10px;
+}

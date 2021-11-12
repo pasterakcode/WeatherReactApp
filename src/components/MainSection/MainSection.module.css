@@ -1,7 +1,19 @@
 .mainSection{
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
-    border: 2px solid yellow;
+    min-width: 350px;
+    max-width: 850px;
+	background-color: #242f3e;
+    color: white;
+	border: 2px solid white;
+	border-radius: 25px;
+	opacity: 0.95;
 }
+
+@media screen and (min-width: 550px) {
+    .mainSection{
+        min-width: 500px;
+    }
+  }

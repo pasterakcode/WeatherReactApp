@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ResultTable.module.css'
+import styles from './ResultTable.module.css';
 import LoadingPage from '../../../GlobalComponents/LoadingPage/LoadingPage';
 
 function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
@@ -9,7 +9,7 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 	useEffect(() => {
 		if (selectedTown) {
 			clearInterval(timer);
-			setTimeToUpdate(15);
+			setTimeToUpdate(10);
 			setTimer(
 				setInterval(async () => {
 					setTimeToUpdate(prev => prev - 1);
@@ -22,7 +22,7 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 		const checker = async () => {
 			try {
 				if (timeToUpdate < 0) {
-					setTimeToUpdate(15);
+					setTimeToUpdate(10);
 					await updateWeatherInfo();
 				}
 			} catch (err) {
@@ -42,31 +42,48 @@ function ResultTable({ selectedTown, weatherInfo, onHanldeWeatherInfo }) {
 
 	return (
 		<table className={`table ${styles.table}`}>
-			<thead>
-				<tr>
-					<th scope='col'>date</th>
-					<th scope='col'>humidity</th>
-					<th scope='col'>temp</th>
-					<th scope='col'>to update</th>
-				</tr>
-			</thead>
 			<tbody>
-				<tr>
-					{weatherInfo ? (
-						<>
+				{weatherInfo ? (
+					<>
+						<tr>
+							<th>Date info</th>
 							<td>{weatherInfo.date}</td>
-							<td>{weatherInfo.humidity}</td>
-							<td>{weatherInfo.temp}</td>
+						</tr>
+						<tr>
+							<th>temperature</th>
+							<td>{weatherInfo.temp}°C</td>
+						</tr>
+						<tr>
+							<th>humidity</th>
+							<td>{weatherInfo.humidity}%</td>
+						</tr>
+						<tr>
+							<th>time to update</th>
 							<td>{timeToUpdate}</td>
-						</>
-					) : (
-						<>
-							<td colspan="4">
+						</tr>
+					</>
+				) : (
+					<>
+						<tr>
+							<th>Date info</th>
+							<td>
 								<LoadingPage />
 							</td>
-						</>
-					)}
-				</tr>
+						</tr>
+						<tr>
+							<th>temperature</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>humidity</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>time to update</th>
+							<td></td>
+						</tr>
+					</>
+				)}
 			</tbody>
 		</table>
 	);

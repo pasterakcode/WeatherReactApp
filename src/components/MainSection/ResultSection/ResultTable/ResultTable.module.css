@@ -1,5 +1,14 @@
 .table th{
-    font-size: 16px;
+    text-align: left;
+    line-height: 24px;
+    font-size: 15px;
+    font-weight: normal;
     text-transform: uppercase;
-    color: whitesmoke;
+    color: white;
+}
+
+.table td {
+    color: white;
+    line-height: 24px;
+    font-weight: bold;
 }
