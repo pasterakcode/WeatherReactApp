@@ -30,7 +30,7 @@ Important infomrations:
 
 To start Application please do:
 1. Download all project to your device
-2. Ask me about file config.js -> there are nessesary information to start application
+2. Ask me about file config.js -> there are necessary information to start application
 3. Paste file config.js (from me) to folder "src" in my projects
 4. Open termial in folder where you downloaded my project
 5. Install NPM / use command: npm install -g npm
