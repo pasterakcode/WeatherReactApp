@@ -2,7 +2,7 @@ Weather App
 
 ----
 The application allows you to check the temperature and humidity of the air in two cities (to choose from).
-------
+----
 
 Important infomrations:
 1. After launching the application, the user is asked to choose a city
@@ -26,7 +26,7 @@ Important infomrations:
 6. The application has a mobile version (above) and a desktop (below)
 
 ![desktop_selected](https://user-images.githubusercontent.com/78322363/141534664-e97bf9d9-09a8-47f6-81dd-5f2d7757d2af.JPG)
-------
+----
 
 To start Application please do:
 1. Download all project to your device
