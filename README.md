@@ -6,20 +6,25 @@ The application allows you to check the temperature and humidity of the air in t
 
 Important infomrations:
 1. After launching the application, the user is asked to choose a city
+
 ![mobile_start](https://user-images.githubusercontent.com/78322363/141533776-23033aec-6f3b-4839-8cd9-3805529683be.JPG)
 
 2. The developer can add new cities to the list in a simple way: cities are stored in the "towns" board.
+
 ![prepareForNextTown](https://user-images.githubusercontent.com/78322363/141533992-ffced23f-0f28-4665-a0f0-3333c975a2f9.JPG)
 
 3. After selecting the city, the user sees information about downloading data from the API.
+
 ![mobile_waitingOnData](https://user-images.githubusercontent.com/78322363/141534119-8504bc59-15a7-416f-907c-9a660b891a59.JPG)
 
 4. After downloading information from the API, they are displayed in a table in the form: Date and time of data update by the provider, temperature [C] and air humidity [%]
+
 ![mobile_selected](https://user-images.githubusercontent.com/78322363/141534330-bd598e38-2b8a-4962-b7ec-d07e2bd16290.JPG)
 
 5. As expected, the application refreshes the data every 10 seconds, even though the API provider (openWeather) refreshes the data less frequently. The last item in the table "time to update" informs about the countdown to refresh
 
 6. The application has a mobile version (above) and a desktop (below)
+
 ![desktop_selected](https://user-images.githubusercontent.com/78322363/141534664-e97bf9d9-09a8-47f6-81dd-5f2d7757d2af.JPG)
 ------
 
